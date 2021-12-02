@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+# See https://adventofcode.com/2021/day/1
+input = File.readlines(ARGV[0]).map(&:split)
+input = input.map{|direction, distance| [direction, distance.to_i]}
+
+horizontal_position = 0
+aim = 0
+depth = 0
+
+input.each do |direction, distance|
+    case direction
+    when 'forward'
+        horizontal_position += distance
+        depth += (distance * aim)
+    when 'up'
+        aim -= distance
+    when 'down'
+        aim += distance
+    end       
+end
+
+puts "Horizontal Position: #{horizontal_position}"
+puts "Depth: #{depth}"
+puts horizontal_position * depth
