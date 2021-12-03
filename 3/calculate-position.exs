@@ -1,15 +1,8 @@
 # See https://adventofcode.com/2021/day/3
 defmodule Submarine do
-    def move(command, starting_position) do
-        case command do
-            {"forward", x} ->
-                [Enum.at(starting_position, 0) + x, Enum.at(starting_position, 1)]
-            {"up", y} ->
-                [Enum.at(starting_position, 0), Enum.at(starting_position, 1) - y]
-            {"down", y} ->
-                [Enum.at(starting_position, 0), Enum.at(starting_position, 1) + y]
-        end
-    end
+    def move({"forward", distance}, {x, y}), do: {x+distance, y}
+    def move({"up", distance}, {x, y}), do: {x, y-distance}
+    def move({"down", distance}, {x, y}), do: {x, y+distance}
 end
 
 {:ok, commands} = File.read("input.txt")
@@ -17,8 +10,9 @@ end
     |> String.split("\n", trim: true) \
     |> Enum.map(fn command -> String.split(command, " ", trim: true) end) \
     |> Enum.map(fn command -> {Enum.at(command, 0), String.to_integer(Enum.at(command, 1))} end) \
-    |> Enum.reduce([0, 0], &Submarine.move/2)
+    |> Enum.reduce({0, 0}, &Submarine.move/2)
 
-IO.puts("Horizontal Position: #{Enum.at(position, 0)}")
-IO.puts("Depth: #{Enum.at(position, 1)}")
-IO.puts(Enum.product(position))
+{x,y} = position
+IO.puts("Horizontal Position: #{x}")
+IO.puts("Depth: #{y}")
+IO.puts(x*y)
