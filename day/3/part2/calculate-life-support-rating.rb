@@ -12,7 +12,7 @@ oxygen_generator_ratings = input.dup
     most_common_value = frequencies["1"] >= frequencies["0"] ? "1" : "0"
 
     # Reject all that don't match the mask
-    oxygen_generator_ratings.reject!{|rating| rating[bit_position] != most_common_value}
+    oxygen_generator_ratings.select!{|rating| rating[bit_position] == most_common_value}
 
     # Stop when only potential rating left
     break if oxygen_generator_ratings.length == 1
@@ -24,11 +24,11 @@ c02_scrubber_ratings = input.dup
     # Count frequency at current bit position
     frequencies = c02_scrubber_ratings.map{|reading| reading.split('')}.transpose.map{|column| column.group_by(&:itself).transform_values(&:count)}[bit_position]
     
-    # Determine most common value, ties are "1"
-    most_common_value = frequencies["1"] < frequencies["0"] ? "1" : "0"
+    # Determine least common value, ties are "0"
+    least_common_value = frequencies["1"] < frequencies["0"] ? "1" : "0"
 
     # Reject all that don't match the mask
-    c02_scrubber_ratings.reject!{|rating| rating[bit_position] != most_common_value}
+    c02_scrubber_ratings.select!{|rating| rating[bit_position] == least_common_value}
 
     # Stop when only potential rating left
     break if c02_scrubber_ratings.length == 1
