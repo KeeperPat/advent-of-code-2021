@@ -55,7 +55,11 @@ describe Board do
         end
 
         context "when board is a winner" do
-            it "returns the sum of the unmarked numbers times the last played number"
+            it "returns the sum of the unmarked numbers times the last played number" do
+                [7,4,9,5,11,17,23,2,0,14,21,24].each{|number| @board.play!(number)}
+
+                expect(@board.score).to eq(4512)
+            end
         end
     end
 
@@ -64,6 +68,19 @@ describe Board do
             expect(@board.to_s).to eq(@board_input)
         end
 
-        it "replaces numbers on the board with asterisks when they're played"
+        it "replaces numbers on the board with asterisks when they're played" do
+            @board.play!(7)
+            @board.play!(21)
+            @board.play!(23)
+            expect(@board.to_s).to eq(
+                <<~BOARD_STATE
+                    14  * 17 24  4
+                    10 16 15  9 19
+                    18  8  * 26 20
+                    22 11 13  6  5
+                     2  0 12  3  *
+                BOARD_STATE
+            )
+        end
     end
 end

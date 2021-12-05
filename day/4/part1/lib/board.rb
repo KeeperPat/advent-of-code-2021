@@ -2,6 +2,7 @@ class Board
     def initialize(board)
         @board = board.split("\n").map(&:split).map{|row| row.map{|number| number.to_i}}
         @marked = Array.new(5){Array.new(5)} 
+        @played_numbers = []
     end
 
     def play!(played_number)
@@ -10,6 +11,7 @@ class Board
                 @marked[row_index][column_index] = true if played_number == board_number
             end
         end
+        @played_numbers << played_number
     end
 
     def winner?
@@ -20,7 +22,9 @@ class Board
     end
 
     def score
-        nil
+        if winner?
+           unmarked_numbers.sum * @played_numbers.last
+        end
     end
 
     def to_s
@@ -34,4 +38,17 @@ class Board
             }.join(" ")
         }.join("\n") + "\n"
     end
+
+    private
+        def unmarked_numbers
+            numbers = []
+
+            @marked.each.with_index do |row, row_index|
+                row.each.with_index do |position_marked, column_index|
+                    numbers << @board[row_index][column_index] unless position_marked
+                end
+            end
+
+            return numbers
+        end
 end
