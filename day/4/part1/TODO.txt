@@ -1,0 +1,15 @@
+# Board
+    - init(board) takes a string representing the board
+    - play!(number) takes a number, marks it if it is present.
+    - winner? Returns true if all numbers in a column or row are marked
+    - score The sum of all unmarked numbers on that board multiplied by the last number that was played (nil if the board isn't a winner)
+    - to_s return a readable representation of the board for debugging
+
+    private
+    - numbers: two dimenional (5x5) array representing the board
+    - marked_numbers: two dimensional (5x5) array representing which numbers on the board have been marked
+
+# Game
+    - init(numbers, boards)
+    - play!
+    - winning_score
