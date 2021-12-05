@@ -13,7 +13,10 @@ class Board
     end
 
     def winner?
-        false
+        winning_row = @marked.detect{|row| row.uniq == [true]}
+        winning_column = @marked.transpose.detect{|column| column.uniq == [true]}
+
+        !!(winning_row || winning_column)
     end
 
     def score

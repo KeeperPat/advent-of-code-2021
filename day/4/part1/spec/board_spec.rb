@@ -30,8 +30,16 @@ describe Board do
     end
 
     describe "winner?" do
-        it "returns true if all numbers in a column are marked"
-        it "returns true if all numbers in a row are marked"
+        it "returns true if all numbers in a column are marked" do
+            [21, 16, 8, 11, 0].each{|number| @board.play!(number)}
+            expect(@board.winner?).to be true
+        end
+
+        it "returns true if all numbers in a row are marked" do
+            [10, 16, 15, 9, 19].each{|number| @board.play!(number)}
+            expect(@board.winner?).to be true
+        end
+
         it "returns false othewise" do
             expect(@board.winner?).to be false
         end
