@@ -18,8 +18,9 @@ DAYS_TO_SIMULATE.times do |day|
             lanternfish -=1
         end
     end
-    new_lanternfish.times{population << 8}
-    puts "After #{(day+1).to_s.rjust(2)} #{day == 0 ? 'day: ' : 'days:'} #{population.join(',')}"
+    population = population + Array.new(new_lanternfish, 8)
+    #puts "After #{(day+1).to_s.rjust(2)} #{day == 0 ? 'day: ' : 'days:'} #{population.join(',')}"
+    puts "Total After #{(day+1).to_s.rjust(2)} #{day == 0 ? 'day: ' : 'days:'} #{population.length}"
 end
 
 puts "Total Popluation After #{DAYS_TO_SIMULATE} Days: #{population.length}"
