@@ -4,23 +4,14 @@
 INPUT_FILE = ARGV[0]
 DAYS_TO_SIMULATE = ARGV[1] ? ARGV[1].to_i : 80
 
-population = File.readlines(ARGV[0]).first.split(',').map(&:to_i)
+population = File.readlines(INPUT_FILE).first.split(',').map(&:to_i)
 
-puts "Initial state: #{population.join(',')}"
+lanternfish_population_by_age = Array.new(9, 0)
+population.each{|age| lanternfish_population_by_age[age] += 1}
 
-DAYS_TO_SIMULATE.times do |day|
-    new_lanternfish = 0
-    population = population.map do |lanternfish|
-        if lanternfish == 0
-            new_lanternfish += 1
-            lanternfish = 6
-        else
-            lanternfish -=1
-        end
-    end
-    population = population + Array.new(new_lanternfish, 8)
-    #puts "After #{(day+1).to_s.rjust(2)} #{day == 0 ? 'day: ' : 'days:'} #{population.join(',')}"
-    puts "Total After #{(day+1).to_s.rjust(2)} #{day == 0 ? 'day: ' : 'days:'} #{population.length}"
+DAYS_TO_SIMULATE.times do
+    lanternfish_population_by_age[8] = lanternfish_population_by_age.shift
+    lanternfish_population_by_age[6] += lanternfish_population_by_age[8]
 end
 
-puts "Total Popluation After #{DAYS_TO_SIMULATE} Days: #{population.length}"
+puts "Total Popluation After #{DAYS_TO_SIMULATE} Days: #{lanternfish_population_by_age.sum}"
