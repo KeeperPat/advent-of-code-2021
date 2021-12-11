@@ -37,6 +37,17 @@ class OctopusGrid
     end
 
     private
+        ADJACENT_OFFSETS = [
+            [0,1],
+            [1,1],
+            [1,0],
+            [1,-1],
+            [0,-1],
+            [-1,-1],
+            [-1,0],
+            [-1,1],
+        ]
+
         def flash!(coordinates)
             x, y = coordinates
             @octopus_grid[y][x] = 0
@@ -44,7 +55,7 @@ class OctopusGrid
 
             # increment adjacent, unflashed octopus by 1
             adjacent_coordinates(x, y).each do |x, y| 
-                @octopus_grid[y][x] += 1 unless @octopus_grid[y][x] == 0
+                @octopus_grid[y][x] += 1 unless @flashed.include?([x, y])
             end
 
             # add any octopus with energy of 9 to the queue to be flashed
@@ -52,21 +63,15 @@ class OctopusGrid
         end
 
         def adjacent_coordinates(x, y)
-            next_coords = [
-                [0,1],
-                [1,1],
-                [1,0],
-                [1,-1],
-                [0,-1],
-                [-1,-1],
-                [-1,0],
-                [-1,1],
-            ].map do |x_offset, y_offset|
-                coordinates = [x + x_offset, y + y_offset]
+            ADJACENT_OFFSETS.map do |x_offset, y_offset|
+                [x + x_offset, y + y_offset]
             end.select do |x, y|
-                x >= 0 && x < @max_x &&
-                y >= 0 && y < @max_y        
+                valid_coordinates?(x, y)
             end
+        end
+
+        def valid_coordinates?(x, y)
+            (x >= 0 && x < @max_x) && (y >= 0 && y < @max_y)
         end
 
         def coordinates_ready_to_flash
