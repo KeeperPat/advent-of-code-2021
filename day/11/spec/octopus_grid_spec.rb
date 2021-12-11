@@ -74,6 +74,5 @@ describe OctopusGrid do
         it "displays the current state of the grid" do
             expect(@octopus_grid.to_s).to eq(@input)
         end
-
     end
 end
