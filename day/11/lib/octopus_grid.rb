@@ -32,6 +32,10 @@ class OctopusGrid
         @total_flashes += @flashed.size
     end
 
+    def all_flashed?
+        @octopus_grid.all?{|row| row.all?{|value| value == 0}}
+    end
+
     private
         def flash!(coordinates)
             x, y = coordinates

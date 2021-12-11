@@ -52,6 +52,24 @@ describe OctopusGrid do
         end
     end
 
+    describe "all_flashed?" do
+        it "is true if all have flashed this turn" do
+            @octopus_grid = OctopusGrid.new(
+                <<~ALL_FLASHED
+                    0000
+                    0000
+                    0000
+                    0000
+                ALL_FLASHED
+            )
+            expect(@octopus_grid.all_flashed?).to be true
+        end
+        
+        it "is false if all have flashed this turn" do
+            expect(@octopus_grid.all_flashed?).to be false
+        end
+    end
+
     describe "to_s" do
         it "displays the current state of the grid" do
             expect(@octopus_grid.to_s).to eq(@input)
