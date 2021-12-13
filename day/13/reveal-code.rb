@@ -48,7 +48,7 @@ display = (0..max_y).to_a.map{' ' * max_x}
 
 ## Populate Array
 points.each do |x, y|
-    display[y][x] = '*'
+    display[y][x] = '█'
 end
 
 ## Display
