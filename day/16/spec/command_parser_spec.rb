@@ -59,4 +59,14 @@ describe CommandParser do
             end
         end
     end
+
+    describe 'sum_versions' do
+        it 'sum all nested packets' do
+            expect(CommandParser.sum_versions(CommandParser.parse('D2FE28'))).to eq(6)
+            expect(CommandParser.sum_versions(CommandParser.parse('8A004A801A8002F478'))).to eq(16)
+            expect(CommandParser.sum_versions(CommandParser.parse('620080001611562C8802118E34'))).to eq(12)
+            expect(CommandParser.sum_versions(CommandParser.parse('C0015000016115A2E0802F182340'))).to eq(23)
+            expect(CommandParser.sum_versions(CommandParser.parse('A0016C880162017C3686B18A3D4780'))).to eq(31)
+        end
+    end
 end

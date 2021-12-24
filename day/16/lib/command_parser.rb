@@ -5,6 +5,16 @@ class CommandParser
         return parse_binary(binary_transmission)
     end
 
+    def self.sum_versions(parsed_commands)
+        versions = []
+        versions << parsed_commands[:version]
+        if parsed_commands.include?(:subpackets)
+            versions << parsed_commands[:subpackets].map{|subpacket| sum_versions(subpacket)}
+        end
+
+        return versions.flatten.sum
+    end
+
     private
         def self.pad(binary_transmission, hex_transmission)
             zero_padding = "0" * ((hex_transmission.length * 4)- binary_transmission.length)
