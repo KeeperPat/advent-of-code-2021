@@ -42,6 +42,8 @@ class CommandParser
 
             if length_type_id == 0
                 return parse_command_type_0(version, type_id, binary_transmission)
+            elsif length_type_id == 1
+                return parse_command_type_1(version, type_id, binary_transmission)
             end
         end
 
@@ -58,6 +60,22 @@ class CommandParser
                 type_id: type_id,
                 length_type_id: 0,
                 subpackets_length: subpackets_length,
+                subpackets: subpackets
+            }
+        end
+
+        def self.parse_command_type_1(version, type_id, binary_transmission)
+            number_of_subpackets = binary_transmission.slice!(0...11).to_i(2)
+            subpackets = []
+            number_of_subpackets.times do
+                subpackets << parse_binary(binary_transmission)
+            end
+
+            return {
+                version: version,
+                type_id: type_id,
+                length_type_id: 1,
+                number_of_subpackets: number_of_subpackets,
                 subpackets: subpackets
             }
         end

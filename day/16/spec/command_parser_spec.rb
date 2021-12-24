@@ -35,6 +35,27 @@ describe CommandParser do
             end
 
             it 'should parse a single packet with length type 1' do
+                expect(CommandParser.parse('EE00D40C823060')).to eq({
+                    version: 7,
+                    type_id: 3,
+                    length_type_id: 1,
+                    number_of_subpackets: 3,
+                    subpackets: [
+                        {
+                            version: 2,
+                            type_id: 4,
+                            value: 1            
+                        }, {
+                            version: 4,
+                            type_id: 4,
+                            value: 2
+                        }, {
+                            version: 1,
+                            type_id: 4,
+                            value: 3
+                        }
+                    ]
+                })
             end
         end
     end
