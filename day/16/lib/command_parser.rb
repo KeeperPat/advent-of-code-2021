@@ -15,7 +15,40 @@ class CommandParser
         return versions.flatten.sum
     end
 
+    def self.calculate(parsed_commands)
+        case parsed_commands[:type_id]
+        when SUM
+            parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}.sum
+        when PRODUCT
+            parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}.inject(:*)
+        when MINIMUM
+            parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}.min
+        when MAXIMUM
+            parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}.max
+        when LITERAL
+            parsed_commands[:value]
+        when GREATER_THAN
+            first, second = parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}
+            first > second ? 1 : 0
+        when LESS_THAN
+            first, second = parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}
+            first < second ? 1 : 0
+        when EQUAL_TO
+            first, second = parsed_commands[:subpackets].map{|subpacket| calculate(subpacket)}
+            first == second ? 1 : 0
+        end
+    end
+
     private
+        SUM = 0
+        PRODUCT = 1
+        MINIMUM = 2
+        MAXIMUM = 3
+        LITERAL = 4
+        GREATER_THAN = 5
+        LESS_THAN = 6
+        EQUAL_TO = 7
+
         def self.pad(binary_transmission, hex_transmission)
             zero_padding = "0" * ((hex_transmission.length * 4)- binary_transmission.length)
 

@@ -69,4 +69,46 @@ describe CommandParser do
             expect(CommandParser.sum_versions(CommandParser.parse('A0016C880162017C3686B18A3D4780'))).to eq(31)
         end
     end
+
+    describe 'calculate' do
+        it 'finds sums for type_id 0 commands' do
+            # finds the sum of 1 and 2, resulting in the value 3.
+            expect(CommandParser.calculate(CommandParser.parse('C200B40A82'))).to eq(3)
+        end
+
+        it 'finds products for type_id 1 commands' do
+            # finds the product of 6 and 9, resulting in the value 54.
+            expect(CommandParser.calculate(CommandParser.parse('04005AC33890'))).to eq(54)
+        end
+
+        it 'finds the minimum for type_id 2 commands' do
+            # finds the minimum of 7, 8, and 9, resulting in the value 7.
+            expect(CommandParser.calculate(CommandParser.parse('880086C3E88112'))).to eq(7)
+        end
+
+        it 'finds maximum for type_id 3 commands' do
+            # finds the maximum of 7, 8, and 9, resulting in the value 9.
+            expect(CommandParser.calculate(CommandParser.parse('CE00C43D881120'))).to eq(9)
+        end
+
+        it 'returns greater than boolean for type_id 5 commands' do
+            # produces 1, because 5 is less than 15.
+            expect(CommandParser.calculate(CommandParser.parse('D8005AC2A8F0'))).to eq(1)
+        end
+
+        it 'returns less than boolean for type_id 6 commands' do
+            # produces 0, because 5 is not greater than 15.
+            expect(CommandParser.calculate(CommandParser.parse('F600BC2D8F'))).to eq(0)
+        end
+
+        it 'returns equal to boolean for type_id 7 commands' do
+            # produces 0, because 5 is not equal to 15.
+            expect(CommandParser.calculate(CommandParser.parse('9C005AC2F8F0'))).to eq(0)
+        end
+
+        it 'handles nested commands' do
+            # produces 1, because 1 + 3 = 2 * 2.
+            expect(CommandParser.calculate(CommandParser.parse('9C0141080250320F1802104A08'))).to eq(1)
+        end
+    end
 end
