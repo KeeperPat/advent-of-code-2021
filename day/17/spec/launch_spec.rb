@@ -40,4 +40,13 @@ describe Launch do
             end
         end
     end
+
+    describe 'max_height' do
+        it 'returns max height reached during launch for successful outcomes' do
+            @launch = Launch.new(Probe.new([6, 9]), @target_area)
+            expect(@launch.outcome).to eq(:success)
+
+            expect(@launch.max_height).to eq(45)
+        end
+    end
 end
