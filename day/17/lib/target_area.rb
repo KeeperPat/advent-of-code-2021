@@ -1,4 +1,6 @@
 class TargetArea
+    attr_reader :x_range, :y_range
+
     def initialize(x_range, y_range)
         @x_range = x_range
         @y_range = y_range
