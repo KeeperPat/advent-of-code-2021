@@ -4,7 +4,8 @@ class TargetArea
         @y_range = y_range
     end
 
-    def include?(x, y)
+    def include?(position)
+        x, y = position
         @x_range.include?(x) && @y_range.include?(y)
     end
 end
