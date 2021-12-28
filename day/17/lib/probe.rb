@@ -28,4 +28,8 @@ class Probe
     def position
         [@x_position, @y_position]
     end
+
+    def missed?(target_area)
+        @x_position > target_area.x_range.end || @y_position < target_area.y_range.begin
+    end
 end

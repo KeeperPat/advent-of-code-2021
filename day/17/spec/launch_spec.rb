@@ -26,7 +26,7 @@ describe Launch do
             end
 
             it 'returns :missed_right' do
-                expect(@launch.outcome).to eq(:missed_right)
+                expect(@launch.outcome).to eq(:missed)
             end
         end
 
@@ -36,7 +36,7 @@ describe Launch do
             end
 
             it 'returns :missed_left' do
-                expect(@launch.outcome).to eq(:missed_left)
+                expect(@launch.outcome).to eq(:missed)
             end
         end
     end
