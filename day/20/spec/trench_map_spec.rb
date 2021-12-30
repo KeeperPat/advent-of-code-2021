@@ -24,4 +24,10 @@ describe TrenchMap do
             expect(@trench_map.image).to eq(initial_image)
         end
     end
+
+    describe 'binary_value_at' do
+        it 'returns the binary file at given coordinates' do
+            expect(@trench_map.binary_value_at(2,2)).to eq(34)
+        end
+    end
 end
