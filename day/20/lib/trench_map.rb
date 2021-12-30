@@ -8,6 +8,22 @@ class TrenchMap
         @image = @image.split("\n").map{|row| row.split('')}
     end
 
+    def light_pixels
+        light_pixels = []
+
+        @image.each_with_index do |row, y|
+            row.each_with_index do |value, x|
+                light_pixels << [x, y] if value == '#'
+            end
+        end
+
+        return light_pixels
+    end
+
+    def output_pixel_at(x, y)
+        @image_enhancement_algorithm[binary_value_at(x, y)]
+    end
+
     def binary_value_at(x, y)
         adjacent_pixels(x, y).gsub('.', '0').gsub('#', '1').to_i(2)
     end 

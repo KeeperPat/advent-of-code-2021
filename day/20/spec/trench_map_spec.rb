@@ -30,4 +30,18 @@ describe TrenchMap do
             expect(@trench_map.binary_value_at(2,2)).to eq(34)
         end
     end
+
+    describe 'output_pixel_at' do
+        it 'returns the binary file at given coordinates' do
+            expect(@trench_map.output_pixel_at(2,2)).to eq('#')
+        end
+
+    end
+
+    describe 'light_pixels' do
+        it 'returns the coordinates of all the light pixels' do
+            expect(@trench_map.light_pixels.size).to eq(10)
+            expect(@trench_map.light_pixels.first).to eq([0, 0])
+        end
+    end
 end
