@@ -6,15 +6,22 @@ class TrenchMap
         
         @image_enhancement_algorithm = @image_enhancement_algorithm.strip.chars
         @image = @image.split("\n").map{|row| row.split('')}
+
+        @infinite_char = '.'
     end
 
     def enhance!
         expand!
+
         @image = max_y.times.map do |y|
             max_x.times.map do |x|
                 output_pixel_at(x, y)
             end
         end
+
+        update_infinite_char!
+
+        self
     end
 
     def light_pixels
@@ -55,7 +62,7 @@ class TrenchMap
                 if valid_coordinates?(x, y)
                     @image[y][x]
                 else
-                    '.'
+                    @infinite_char
                 end
             end.join
         end
@@ -74,9 +81,17 @@ class TrenchMap
 
         def expand!
             @image = @image.map do |row|
-                ['.'] + row + ['.']
+                [@infinite_char] + row + [@infinite_char]
             end
-            blank_row = ('.' * max_x).split('')
+            blank_row = (@infinite_char * max_x).split('')
             @image = [blank_row].concat(image, [blank_row])
+        end
+
+        def update_infinite_char!
+            if @infinite_char == '.'
+                @infinite_char = image_enhancement_algorithm.first
+            else
+                @infinite_char = image_enhancement_algorithm.last
+            end
         end
     end

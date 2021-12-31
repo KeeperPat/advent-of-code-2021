@@ -43,6 +43,22 @@ describe TrenchMap do
             @trench_map.enhance!
             expect(@trench_map.light_pixels.size).to eq(35)
         end
+
+        it 'handles image_enhancement_algorithms that flip the infinite space' do
+            sample_input_file_path = File.join(File.dirname(__FILE__), '../input/flash-input.txt')
+            @trench_map = TrenchMap.new(File.read(sample_input_file_path))
+
+            output_image = [
+                %w(# # # # #),
+                %w(# # # # #),
+                %w(# # # # #),
+                %w(# # # # #),
+                %w(# # # # #),
+            ]
+
+            @trench_map.enhance!
+            expect(@trench_map.image).to eq(output_image)
+        end
     end
 
     describe 'binary_value_at' do
