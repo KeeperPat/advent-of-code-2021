@@ -8,7 +8,7 @@ STEPS = ARGV[1].to_i
 trench_map = TrenchMap.new(File.read(INPUT_FILE))
 
 STEPS.times do |step|
-    octopus_grid.enhance!
+    trench_map.enhance!
 end
 
 puts trench_map.light_pixels.size
