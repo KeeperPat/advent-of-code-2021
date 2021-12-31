@@ -37,17 +37,15 @@ class TrenchMap
         adjacent_pixels(x, y).gsub('.', '0').gsub('#', '1').to_i(2)
     end 
 
+    def to_s
+        @image.map{|row | row.join('') + "\n"}
+    end
+
     private
         ADJACENT_OFFSETS = [
-            [-1,-1],
-            [0,-1],
-            [1,-1],
-            [-1,0],
-            [0,0],
-            [1,0],
-            [-1,1],
-            [0,1],
-            [1,1],
+            [-1,-1], [0,-1], [1,-1],
+            [-1,0], [0,0], [1,0],
+            [-1,1], [0,1], [1,1],
         ]
 
         def adjacent_pixels(x, y)
