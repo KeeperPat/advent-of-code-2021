@@ -25,6 +25,26 @@ describe TrenchMap do
         end
     end
 
+    describe 'enhance!' do
+        it 'expands and enhances the image' do
+            output_image = [
+                %w(. # # . # # .),
+                %w(# . . # . # .),
+                %w(# # . # . . #),
+                %w(# # # # . . #),
+                %w(. # . . # # .),
+                %w(. . # # . . #),
+                %w(. . . # . # .),
+            ]
+    
+            @trench_map.enhance!
+            expect(@trench_map.image).to eq(output_image)
+
+            @trench_map.enhance!
+            expect(@trench_map.light_pixels.size).to eq(35)
+        end
+    end
+
     describe 'binary_value_at' do
         it 'returns the binary file at given coordinates' do
             expect(@trench_map.binary_value_at(2,2)).to eq(34)

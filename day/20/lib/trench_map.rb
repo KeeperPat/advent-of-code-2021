@@ -8,6 +8,15 @@ class TrenchMap
         @image = @image.split("\n").map{|row| row.split('')}
     end
 
+    def enhance!
+        expand!
+        @image = max_y.times.map do |y|
+            max_x.times.map do |x|
+                output_pixel_at(x, y)
+            end
+        end
+    end
+
     def light_pixels
         light_pixels = []
 
@@ -63,5 +72,13 @@ class TrenchMap
 
         def max_y
             @image.length
+        end
+
+        def expand!
+            @image = @image.map do |row|
+                ['.'] + row + ['.']
+            end
+            blank_row = ('.' * max_x).split('')
+            @image = [blank_row].concat(image, [blank_row])
         end
     end
