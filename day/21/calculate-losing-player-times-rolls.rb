@@ -12,4 +12,4 @@ until game.winner? do
     game.play_turn!
 end
 
-puts game.loser.score * game.die.total_rolls
+puts game.losing_player.score * game.die.total_rolls
