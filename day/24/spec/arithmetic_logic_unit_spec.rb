@@ -70,7 +70,23 @@ describe ArithmeticLogicUnit do
             end
         end
 
-        it 'implements div'
+        describe 'div' do
+            it 'works with a register and a number' do
+                program = "add x 5\ndiv x 2\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({'x' => 2})    
+            end
+
+            it 'works with two registers' do
+                program = "add x 6\nadd y 3\ndiv x y\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({
+                    'x' => 2,
+                    'y' => 3
+                })    
+            end
+        end
+
         it 'implements mod'
         it 'implements eql'
     end
