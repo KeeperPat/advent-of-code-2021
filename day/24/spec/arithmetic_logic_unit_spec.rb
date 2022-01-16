@@ -104,6 +104,27 @@ describe ArithmeticLogicUnit do
             end
         end
 
-        it 'implements eql'
+        describe 'eql' do
+            it 'sets variable to 0 if it does not equal the second parameter' do
+                program = "eql x 6\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({'x' => 0})
+            end
+
+            it 'sets variable to 1 if it equals the second parameter' do
+                program = "eql x 0\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({'x' => 1})
+            end
+
+            it 'works with two registers' do
+                program = "add x 3\nadd y 3\neql x y\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({
+                    'x' => 1,
+                    'y' => 3
+                })    
+            end
+        end
     end
 end

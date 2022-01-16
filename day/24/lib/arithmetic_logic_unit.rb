@@ -19,6 +19,12 @@ class ArithmeticLogicUnit
                 @registers[command[1]] /= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             when 'mod'
                 @registers[command[1]] %= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+            when 'eql'
+                if @registers[command[1]] == (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                    @registers[command[1]] = 1
+                else
+                    @registers[command[1]] = 0
+                end
             end
         end
 
