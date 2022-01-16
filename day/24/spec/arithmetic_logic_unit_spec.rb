@@ -53,7 +53,23 @@ describe ArithmeticLogicUnit do
             end
         end
 
-        it 'implements mul'
+        describe 'mul' do
+            it 'works with a register and a number' do
+                program = "add x 2\nmul x 3\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({'x' => 6})    
+            end
+
+            it 'works with two registers' do
+                program = "add x 2\nadd y 3\nmul x y\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({
+                    'x' => 6,
+                    'y' => 3
+                })    
+            end
+        end
+
         it 'implements div'
         it 'implements mod'
         it 'implements eql'

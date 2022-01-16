@@ -13,6 +13,8 @@ class ArithmeticLogicUnit
                 @registers[command[1]] = input.shift
             when 'add'
                 @registers[command[1]] += (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+            when 'mul'
+                @registers[command[1]] *= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             end
         end
 
