@@ -8,19 +8,20 @@ class ArithmeticLogicUnit
 
     def process!(input = [])
         commands.each do |command|
+            second_param_value = (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             case command[0]
             when 'inp'
                 @registers[command[1]] = input.shift
             when 'add'
-                @registers[command[1]] += (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                @registers[command[1]] += second_param_value
             when 'mul'
-                @registers[command[1]] *= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                @registers[command[1]] *= second_param_value
             when 'div'
-                @registers[command[1]] /= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                @registers[command[1]] /= second_param_value
             when 'mod'
-                @registers[command[1]] %= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                @registers[command[1]] %= second_param_value
             when 'eql'
-                if @registers[command[1]] == (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+                if @registers[command[1]] == second_param_value
                     @registers[command[1]] = 1
                 else
                     @registers[command[1]] = 0
