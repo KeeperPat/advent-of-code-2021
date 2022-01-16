@@ -17,6 +17,8 @@ class ArithmeticLogicUnit
                 @registers[command[1]] *= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             when 'div'
                 @registers[command[1]] /= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
+            when 'mod'
+                @registers[command[1]] %= (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             end
         end
 

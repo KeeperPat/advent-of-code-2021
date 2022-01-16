@@ -87,7 +87,23 @@ describe ArithmeticLogicUnit do
             end
         end
 
-        it 'implements mod'
+        describe 'mod' do
+            it 'works with a register and a number' do
+                program = "add x 5\nmod x 2\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({'x' => 1})
+            end
+
+            it 'works with two registers' do
+                program = "add x 6\nadd y 3\nmod x y\n"
+                @alu = ArithmeticLogicUnit.new(program)
+                expect(@alu.process!).to eq({
+                    'x' => 0,
+                    'y' => 3
+                })    
+            end
+        end
+
         it 'implements eql'
     end
 end
