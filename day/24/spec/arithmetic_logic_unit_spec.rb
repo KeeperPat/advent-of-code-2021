@@ -22,4 +22,24 @@ describe ArithmeticLogicUnit do
             expect(@alu.commands[1]).to eq(['mul', 'x', 0])
         end
     end
+
+    describe 'process' do
+        it 'returns registers' do
+            @alu = ArithmeticLogicUnit.new
+            expect(@alu.process!).to eq({})
+        end
+
+        it 'implements inp' do
+            program = "inp w\n"
+            @alu = ArithmeticLogicUnit.new(program)
+            expect(@alu.process!([4])).to eq({'w' => 4})
+
+        end
+
+        it 'implements add'
+        it 'implements mul'
+        it 'implements div'
+        it 'implements mod'
+        it 'implements eql'
+    end
 end

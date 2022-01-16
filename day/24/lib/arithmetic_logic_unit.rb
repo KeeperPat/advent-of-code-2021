@@ -1,9 +1,20 @@
 class ArithmeticLogicUnit
     attr_reader :commands, :registers
 
-    def initialize(program)
+    def initialize(program = '')
         @registers = Hash.new(0)
         load_program(program)
+    end
+
+    def process!(input = [])
+        commands.each do |command|
+            case command[0]
+            when 'inp'
+                @registers[command[1]] = input.shift
+            end
+        end
+
+        return registers
     end
 
     private
