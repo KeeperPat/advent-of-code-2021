@@ -1,0 +1,92 @@
+I ended up working this one out by hand and needed the explanation from https://www.ericburden.work/blog/2022/01/05/advent-of-code-2021-day-24/
+
+I did do the calculations below, but I don't think I would have mapped that it was a stack without an explanation.
+
+inp w     inp w     inp w     inp w
+mul x 0   mul x 0   mul x 0   mul x 0  
+add x z   add x z   add x z   add x z  
+mod x 26  mod x 26  mod x 26  mod x 26   
+div z 1   div z 1   div z 1   div z 26  
+add x 11  add x 14  add x 10  add x 0   
+eql x w   eql x w   eql x w   eql x w  
+eql x 0   eql x 0   eql x 0   eql x 0  
+mul y 0   mul y 0   mul y 0   mul y 0  
+add y 25  add y 25  add y 25  add y 25   
+mul y x   mul y x   mul y x   mul y x  
+add y 1   add y 1   add y 1   add y 1  
+mul z y   mul z y   mul z y   mul z y  
+mul y 0   mul y 0   mul y 0   mul y 0  
+add y w   add y w   add y w   add y w  
+add y 8   add y 13  add y 2   add y 7  
+mul y x   mul y x   mul y x   mul y x  
+add z y   add z y   add z y   add z y
+
+1, 11, 8
+1, 14, 13
+1, 10, 2
+26, 0, 7
+1, 12, 11
+1, 12, 4
+1, 12, 13
+26, -8, 13
+26, -9, 10
+1, 11, 1
+26, 0, 2
+26, -5, 14
+26, -6, 6
+26, -12, 14
+
+a
+b
+c
+
+w = input
+x = ((z mod 26) + b) != w
+z = floor(z / a) * ((25 * x) + 1)
+z = z + ((w + c) * x)
+
+z = if ((z mod 26) + b) != w
+    (floor(z / a) * 26) + w + c
+else
+    floor(z / a)
+end
+
+
+c<1> + b<14> == -4
+w<1> - 4 == w<14> <|> w<14> + 4 == w<1>
+w<1>: 9, w<14>: 5
+w<1>: 5, w<14>: 1
+
+c<2> + b<13> == 7
+w<2> + 7 == w<13> <|> w<13> -7 == w<2>
+w<2>: 2, w<13>: 9
+w<2>: 1, w<13>: 8
+
+c<3> + b<4>  == 2
+w<3> + 2 == w<4>  <|> w<4> - 2 == w<3>
+w<3>: 7, w<4>: 9
+w<3>: 1, w<4>: 3
+
+c<5> + b<12> == 6
+w<5> + 6 == w<12> <|> w<12> - 6 == w<5>
+w<5>: 3, w<12>: 9
+w<5>: 1, w<12>: 7
+
+c<6> + b<9>  == -5
+w<6> - 5 == w<9>  <|> w<9> + 5 == w<6>
+w<6>: 9, w<9>: 4
+w<6>: 6, w<9>: 1
+
+c<7> + b<8>  == 5
+w<7> + 5 == w<8>  <|> w<8> -5 == w<7>
+w<7>: 4, w<8>: 9
+w<7>: 1, w<8>: 6
+
+c<10> + b<11> == 1
+w<10> + 1 == w<11> <|> w<11> - 1 == w<10>
+w<10>: 8, w<11>: 9
+w<10>: 1, w<11>: 2
+
+Largest:  92793949489995
+Smallest: 51131616112781
+
