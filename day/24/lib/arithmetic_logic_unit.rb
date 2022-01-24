@@ -7,6 +7,8 @@ class ArithmeticLogicUnit
     end
 
     def process!(input = [])
+        @registers = Hash.new(0)
+
         commands.each do |command|
             second_param_value = (command[2].is_a?(Integer) ? command[2] : @registers[command[2]])
             case command[0]
